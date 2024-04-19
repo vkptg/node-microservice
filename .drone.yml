@@ -2,9 +2,27 @@ kind: pipeline
 name: default
 
 steps:
-- name: test
+- name: build
   image: node:9.8.0
   commands:
-    - npm install
-    - npm test
-    
+  - sh ./.drone/build.sh
+- name: publish
+  image: plugins/docker
+  settings:
+    repo: vickydk/node-microservice
+    auto_tag: true
+    username:
+      from_secret: vickydk
+    password:
+      from_secret: dk@11235^
+- name: deploy
+  image: docker
+  commands:
+  - sh ./.drone/deploy.sh
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock
