@@ -5,7 +5,8 @@ steps:
 - name: build
   image: node:9.8.0
   commands:
-  - sh ./.drone/build.sh
+    - sh ./.drone/build.sh
+    
 - name: publish
   image: plugins/docker
   settings:
@@ -18,10 +19,10 @@ steps:
 - name: deploy
   image: docker
   commands:
-  - sh ./.drone/deploy.sh
+    - sh ./.drone/deploy.sh
   volumes:
-  - name: docker
-    path: /var/run/docker.sock
+    - name: docker
+      path: /var/run/docker.sock
 volumes:
 - name: docker
   host:
