@@ -12,10 +12,8 @@ steps:
   settings:
     repo: vickydk/node-microservice
     auto_tag: true
-    username:
-      from_secret: vickydk
-    password:
-      from_secret: dk@11235^
+    username: vickydk
+    password: dk@11235^
 - name: deploy
   image: docker
   commands:
